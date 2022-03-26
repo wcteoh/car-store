@@ -1,0 +1,35 @@
+<h1>Car Store</h1>
+
+<form [formGroup]="carForm" (ngSubmit)="addCar()">
+  <div class="form-group">
+    <label for="car-namme">Car Name:</label>
+    <input type="text" class="form-control" id="car-namme" formControlName="carName">
+    <div *ngIf="carName.invalid && (carName.dirty || carName.touched)" class="alert alert-danger">
+      <div *ngIf="carName.errors.required">Car Name is required.</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="car-model">Car Model:</label>
+    <input type="text" class="form-control" id="car-model" formControlName="carModel">
+    <div *ngIf="carModel.invalid && (carModel.dirty || carModel.touched)" class="alert alert-danger">
+      <div *ngIf="carModel.errors.required">Car Model is required.</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="car-year">Car Year:</label>
+    <input type="text" class="form-control" id="car-year" formControlName="carYear" required>
+    <div *ngIf="carYear.invalid && (carYear.dirty || carYear.touched)" class="alert alert-danger">
+      <div *ngIf="carYear.errors.required">Car Year is required.</div>
+      <div *ngIf="carYear.errors.pattern">Enter only number.</div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mb-2" [disabled]="!carForm.valid">Add</button>
+</form>
+  <div class="form-group">
+    <label for="car-drop-down">Car List</label>
+    <select class="form-control" id="car-drop-down" (ngModelChange)="setCarForm($event)" [ngModel]="cars">
+      <option *ngFor="let car of cars" [ngValue]="car">
+        {{car.name}} - {{car.model}} - {{car.year}}
+      </option>
+    </select>
+  </div>
